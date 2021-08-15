@@ -1,0 +1,1 @@
+FOR %%a IN (*.mkv) DO "C:\Program Files\ffmpeg\bin\ffmpeg.exe" -i "%%~na.mkv" -c:v mpeg4 -vtag xvid -c:a copy "xvid_%%~na.mkv"
