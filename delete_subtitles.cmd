@@ -1,0 +1,2 @@
+FOR %%a IN (*.mkv) DO "C:\Program Files\ffmpeg\bin\ffmpeg.exe" -i "%%~na.mkv" -acodec copy -vcodec copy -sn "new_%%~na.mkv"
+FOR %%a IN (*.mp4) DO "C:\Program Files\ffmpeg\bin\ffmpeg.exe" -i "%%~na.mp4" -acodec copy -vcodec copy -sn "new_%%~na.mp4"
