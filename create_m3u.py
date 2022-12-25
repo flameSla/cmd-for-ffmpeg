@@ -24,7 +24,7 @@ if __name__ == "__main__":
             dirpath = dirpath.replace(mypath, '')
             for i in [dirpath+'\\'+f for f in filenames]:
                 #print(i.split('.')[-1])
-                if i.split('.')[-1] not in ('py','m3u','lnk'):
+                if i.split('.')[-1] not in ('py','m3u','lnk','ini'):
                     print(i[1:], file=f, flush=True)
 
     #a = input('...')
