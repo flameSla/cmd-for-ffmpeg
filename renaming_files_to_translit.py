@@ -101,7 +101,7 @@ if __name__ == "__main__":
         # print("dirpath = ", type(dirpath), dirpath)
         # print("dirnames = ", type(dirnames), dirnames)
         # print("filenames = ", type(filenames), filenames)
-        os.makedirs(os.path.join(mypath, "Rename-translit"), exist_ok=True)
+        # os.makedirs(os.path.join(mypath, "Rename-translit"), exist_ok=True)
         for name in filenames:
             old_filename = os.path.join(dirpath, name)
             new_filename = os.path.join(
