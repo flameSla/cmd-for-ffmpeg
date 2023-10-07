@@ -1,3 +1,9 @@
+####################################
+#
+# get a list of files whose codec differs from 265
+#
+####################################
+
 import inspect
 import os
 import sys
