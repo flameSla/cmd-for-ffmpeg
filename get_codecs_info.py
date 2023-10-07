@@ -58,14 +58,23 @@ if __name__ == "__main__":
         # dirpath = dirpath.replace(mypath, "")
         for file in filenames:
             filename = os.path.join(dirpath, file)
-            temp = run_ffmpeg(filename)
-            with open(temp, encoding="utf-8", errors="ignore") as f:
-                for line in f.readlines():
-                    line = line.rstrip()
-                    if "Stream" in line and "Video:" in line:
-                        if "HEVC" not in line.upper():
-                            files[filename] = line
-                        break
+            if filename.split(".")[-1] in (
+                "mpg",
+                "mov",
+                "flv",
+                "mkv",
+                "mp4",
+                "avi",
+                "wmv",
+            ):
+                temp = run_ffmpeg(filename)
+                with open(temp, encoding="utf-8", errors="ignore") as f:
+                    for line in f.readlines():
+                        line = line.rstrip()
+                        if "Stream" in line and "Video:" in line:
+                            if "HEVC" not in line.upper():
+                                files[filename] = line
+                            break
 
     # print("files = ", type(files), files)
     if os.path.exists(temp):
