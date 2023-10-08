@@ -49,7 +49,7 @@ def run_ffmpeg(video_filename):
 if __name__ == "__main__":
     mypath = get_script_dir()
     temp = ""
-    files = {}
+    files = []
 
     for dirpath, dirnames, filenames in walk(mypath):
         # print("dirpath = ", type(dirpath), dirpath)
@@ -67,24 +67,25 @@ if __name__ == "__main__":
                 "avi",
                 "wmv",
             ):
+                # print(filename)
                 temp = run_ffmpeg(filename)
                 with open(temp, encoding="utf-8", errors="ignore") as f:
                     for line in f.readlines():
                         line = line.rstrip()
                         if "Stream" in line and "Video:" in line:
                             if "HEVC" not in line.upper():
-                                files[filename] = line
+                                files.append(filename)
                             break
 
     # print("files = ", type(files), files)
     if os.path.exists(temp):
         os.remove(temp)
 
-    with open("get_codecs_info_out1.txt", "w") as f1:
-        with open("get_codecs_info_out2.txt", "w") as f2:
-            for k, v in files.items():
-                print(k + "; " + v, file=f1)
-                print(k, file=f2)
+    with open(
+        "get_codecs_info_out1.txt", mode="w", encoding="utf-8", errors="ignore"
+    ) as f1:
+        for filename in files:
+            print(filename, file=f1)
 
         #     # print(i.split('.')[-1])
         #     if i.split(".")[-1] not in ("py", "m3u", "lnk", "ini"):
