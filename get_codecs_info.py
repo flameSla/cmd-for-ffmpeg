@@ -12,6 +12,15 @@ import psutil
 import subprocess
 
 ffmpeg = r"C:\Program Files\ffmpeg-2023-08-14\bin\ffmpeg.exe"
+extension_for_video_files = (
+    "mpg",
+    "mov",
+    "flv",
+    "mkv",
+    "mp4",
+    "avi",
+    "wmv",
+)
 
 
 ####################################
@@ -30,7 +39,6 @@ def run_ffmpeg(video_filename):
     global ffmpeg
     temp = "temp.ffmpeg"
 
-    # print("video_filename = ", type(video_filename), video_filename)
     argList = []
     argList.append(ffmpeg)
     argList.extend(["-i", video_filename])
@@ -52,21 +60,9 @@ if __name__ == "__main__":
     files = []
 
     for dirpath, dirnames, filenames in walk(mypath):
-        # print("dirpath = ", type(dirpath), dirpath)
-        # print("filenames = ", type(filenames), filenames)
-
-        # dirpath = dirpath.replace(mypath, "")
         for file in filenames:
             filename = os.path.join(dirpath, file)
-            if filename.split(".")[-1] in (
-                "mpg",
-                "mov",
-                "flv",
-                "mkv",
-                "mp4",
-                "avi",
-                "wmv",
-            ):
+            if filename.split(".")[-1] in extension_for_video_files:
                 # print(filename)
                 temp = run_ffmpeg(filename)
                 with open(temp, encoding="utf-8", errors="ignore") as f:
@@ -77,7 +73,6 @@ if __name__ == "__main__":
                                 files.append(filename)
                             break
 
-    # print("files = ", type(files), files)
     if os.path.exists(temp):
         os.remove(temp)
 
@@ -86,9 +81,3 @@ if __name__ == "__main__":
     ) as f1:
         for filename in files:
             print(filename, file=f1)
-
-        #     # print(i.split('.')[-1])
-        #     if i.split(".")[-1] not in ("py", "m3u", "lnk", "ini"):
-        #         print(i[1:], file=f, flush=True)
-
-    # a = input('...')
