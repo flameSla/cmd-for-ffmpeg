@@ -31,6 +31,8 @@ if __name__ == "__main__":
         if not os.path.exists(new_filename):
             try:
                 with Image.open(old_filename) as im:
-                    im.save(new_filename)
+                    im.save(
+                        new_filename, quality=85
+                    )  # The image quality, on a scale from 0 (worst) to 95 (best)
             except OSError:
                 print("cannot convert", old_filename)
