@@ -13,7 +13,7 @@ def get_current_working_directory():
 if __name__ == "__main__":
     max_res = 1600
     for file in get_current_working_directory().iterdir():
-        if file.is_file() and file.suffix in (".jpg", ".png", ".bmp"):
+        if file.is_file() and file.suffix.lower() in (".jpg", ".png", ".bmp"):
             with Image.open(file) as im:
                 im = Image.open(file)
                 m = max(im.width, im.height)
