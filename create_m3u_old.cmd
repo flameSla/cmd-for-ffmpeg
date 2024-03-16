@@ -1,0 +1,1 @@
+DIR /B /ON *  > myplaylist.m3u
