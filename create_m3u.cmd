@@ -1,1 +1,3 @@
-DIR /B /ON *  > myplaylist.m3u
+py create_m3u.py
+
+pause
