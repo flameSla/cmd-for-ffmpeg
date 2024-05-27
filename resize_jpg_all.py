@@ -49,7 +49,7 @@ def check_folder(folder):
                 if s0 < s1:
                     print("\t\trename")
                     new_file.unlink(missing_ok=True)
-                    file.rename(new_file)
+                    file.rename(file.with_name("res_" + file.name))
                 else:
                     file.unlink(missing_ok=True)
 
