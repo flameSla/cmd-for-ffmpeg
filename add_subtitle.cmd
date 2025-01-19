@@ -13,4 +13,10 @@ FOR %%a IN (*.mp4) DO "C:\Program Files\ffmpeg\bin\ffmpeg.exe" -i "%%~na.mp4" -i
 
 
 
+
+@rem You can burn text subtitles (hardsubs) with one of two filters
+@rem ffmpeg -i video.avi -vf subtitles=subtitle.srt out.avi *If the subtitle is a separate file called subtitle.srt, you can use this command:
+@rem ffmpeg -i video.mkv -vf subtitles=video.mkv out.avi *If the subtitle is embedded in the container video.mkv, you can do this:
+@rem ffmpeg -i video.avi -vf "ass=subtitle.ass" out.avi
+
 pause
