@@ -35,8 +35,9 @@ echo 3 - av-1
 echo 4 - hevc_nvenc -b:v 1200k
 echo 5 - hevc_nvenc -b:v 1200k ac3 192k
 echo 6 - hevc_nvenc ac3 128k
+echo 7 - hevc_nvenc -b:v 1000k ac3 192k
 echo.
-choice /c 123456 /m "default - 1" /t 10 /d 1
+choice /c 1234567 /m "default - 1" /t 10 /d 1
 rem if "%ERRORLEVEL%"=="1" ( FOR /F "usebackq delims==" %%a IN (files.tmp) DO "C:\Program Files\ffmpeg\bin\ffmpeg.exe" -i %%a -map 0:v -map 0:a %resize%-c:v hevc_nvenc -preset slow -qp 26 -c:a copy -c:s copy "%%~dpahevc_nvenc_%%~na.mkv" )
 if "%ERRORLEVEL%"=="1" ( FOR /F "usebackq delims==" %%a IN (files.tmp) DO "C:\Program Files\ffmpeg\bin\ffmpeg.exe" -i %%a %resize%-c:v hevc_nvenc -preset slow -qp 26 -c:a copy -c:s copy "%%~dpahevc_nvenc_%%~na.mkv" )
 if "%ERRORLEVEL%"=="2" ( FOR /F "usebackq delims==" %%a IN (files.tmp) DO "C:\Program Files\ffmpeg\bin\ffmpeg.exe" -i %%a %resize%-c:v hevc_qsv -preset slow -global_quality 26 -c:a copy -c:s copy "%%~dpahevc_Intel_%%~na.mkv" )
@@ -44,6 +45,8 @@ if "%ERRORLEVEL%"=="3" ( FOR /F "usebackq delims==" %%a IN (files.tmp) DO "C:\Pr
 if "%ERRORLEVEL%"=="4" ( FOR /F "usebackq delims==" %%a IN (files.tmp) DO "C:\Program Files\ffmpeg\bin\ffmpeg.exe" -i %%a %resize%-c:v hevc_nvenc -preset slow -b:v 1200k -c:a copy -c:s copy "%%~dpahevc_nvenc_%%~na.mkv" )
 if "%ERRORLEVEL%"=="5" ( FOR /F "usebackq delims==" %%a IN (files.tmp) DO "C:\Program Files\ffmpeg\bin\ffmpeg.exe" -i %%a %resize%-c:v hevc_nvenc -preset slow -b:v 1200k -c:a ac3 -ac 2 -b:a 192k -c:s copy "%%~dpahevc_nvenc_%%~na.mkv" )
 if "%ERRORLEVEL%"=="6" ( FOR /F "usebackq delims==" %%a IN (files.tmp) DO "C:\Program Files\ffmpeg\bin\ffmpeg.exe" -i %%a %resize%-c:v hevc_nvenc -preset slow -qp 26 -c:a ac3 -ac 2 -b:a 128k -c:s copy "%%~dpahevc_nvenc_%%~na.mkv" )
+if "%ERRORLEVEL%"=="7" ( FOR /F "usebackq delims==" %%a IN (files.tmp) DO "C:\Program Files\ffmpeg\bin\ffmpeg.exe" -i %%a %resize%-c:v hevc_nvenc -preset slow -b:v 1000k -c:a ac3 -ac 2 -b:a 192k -c:s copy "%%~dpahevc_nvenc_%%~na.mkv" )
+
 
 del files.tmp
 
