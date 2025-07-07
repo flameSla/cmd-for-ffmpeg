@@ -29,29 +29,33 @@ def check_folder(folder):
                 ".webp",
             ):
                 new_file = file.with_name("res_" + file.name).with_suffix(".jpg")
-                with Image.open(file) as im:
-                    im = Image.open(file)
-                    m = max(im.width, im.height)
-                    k = max_res / m
-                    new_size = (im.width * k, im.height * k)
-                    print("\tnew_file = ", new_file)
+                try:
+                    with Image.open(file) as im:
+                        im = Image.open(file)
+                        m = max(im.width, im.height)
+                        k = max_res / m
+                        new_size = (im.width * k, im.height * k)
+                        print("\tnew_file = ", new_file)
 
-                    if m > max_res:
-                        im.thumbnail(new_size, Image.Resampling.LANCZOS)
-                    rgb_im = im.convert("RGB")
-                    rgb_im.save(new_file, "JPEG", quality=90)
+                        if m > max_res:
+                            im.thumbnail(new_size, Image.Resampling.LANCZOS)
+                        rgb_im = im.convert("RGB")
+                        rgb_im.save(new_file, "JPEG", quality=90)
 
-                # если размер файла увеличился
-                #  переименовываем файл
-                s0 = file.stat().st_size / 1024 / 1024
-                s1 = new_file.stat().st_size / 1024 / 1024
-                print("\told = {:0.2f}Mb\tnew={:0.2f}Mb".format(s0, s1))
-                if s0 < s1:
-                    print("\t\trename")
-                    new_file.unlink(missing_ok=True)
-                    file.rename(file.with_name("res_" + file.name))
-                else:
-                    file.unlink(missing_ok=True)
+                    # если размер файла увеличился
+                    #  переименовываем файл
+                    s0 = file.stat().st_size / 1024 / 1024
+                    s1 = new_file.stat().st_size / 1024 / 1024
+                    print("\told = {:0.2f}Mb\tnew={:0.2f}Mb".format(s0, s1))
+                    if s0 < s1:
+                        print("\t\trename")
+                        new_file.unlink(missing_ok=True)
+                        file.rename(file.with_name("res_" + file.name))
+                    else:
+                        file.unlink(missing_ok=True)
+                except Exception as e:
+                    print(e)
+                    file.rename(file.with_name("bad_" + file.name))
 
         elif file.is_dir():
             check_folder(file)
