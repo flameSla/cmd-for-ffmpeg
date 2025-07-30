@@ -21,7 +21,7 @@ def check_folder(folder):
     print("Currebt dir = {}".format(folder))
     print()
     for file in folder.iterdir():
-        if file.is_file():
+        if file.is_file() and "res_" not in file.name:
             if file.suffix.lower() in (
                 ".jpg",
                 ".png",
@@ -35,7 +35,7 @@ def check_folder(folder):
                         m = max(im.width, im.height)
                         k = max_res / m
                         new_size = (im.width * k, im.height * k)
-                        print("\tnew_file = ", new_file)
+                        # print("\tnew_file = ", new_file)
 
                         if m > max_res:
                             im.thumbnail(new_size, Image.Resampling.LANCZOS)
@@ -46,25 +46,42 @@ def check_folder(folder):
                     #  переименовываем файл
                     s0 = file.stat().st_size / 1024 / 1024
                     s1 = new_file.stat().st_size / 1024 / 1024
-                    print("\told = {:0.2f}Mb\tnew={:0.2f}Mb".format(s0, s1))
+                    # print("\told = {:0.2f}Mb\tnew={:0.2f}Mb".format(s0, s1))
                     if s0 < s1:
-                        print("\t\trename")
+                        # print("\t\trename")
                         new_file.unlink(missing_ok=True)
                         file.rename(file.with_name("res_" + file.name))
                     else:
                         file.unlink(missing_ok=True)
                 except Exception as e:
                     print(e)
-                    file.rename(file.with_name("bad_" + file.name))
 
         elif file.is_dir():
             check_folder(file)
             # print("\tdir\t= {}".format(file))
 
 
+# ====================================
+def check_folder2(folder):
+    for file in folder.iterdir():
+        if file.is_file() and "res_" not in file.name:
+            if file.suffix.lower() in (
+                ".jpg",
+                ".png",
+                ".bmp",
+                ".webp",
+            ):
+                print()
+                print(file)
+                file.rename(file.with_name("res_" + file.name))
+        elif file.is_dir():
+            check_folder2(file)
+
+
 ######################################
 #
 # main
 if __name__ == "__main__":
-
     check_folder(get_current_working_directory())
+    # переименовываем файлы с ошибками
+    check_folder2(get_current_working_directory())
