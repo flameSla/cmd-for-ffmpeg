@@ -22,13 +22,20 @@ echo 1 - do not change
 echo 2 - resize ( 1920 )
 echo 3 - resize ( 1280 )
 echo 4 - resize ( 640 )
+echo 5 - resize ( ? )
 echo.
 set resize=
-choice /c 1234 /m "default - 1" /t 30 /d 1
+choice /c 12345 /m "default - 1" /t 30 /d 1
 if "%ERRORLEVEL%"=="2" ( set resize=-vf scale=1920:-1 )
 if "%ERRORLEVEL%"=="3" ( set resize=-vf scale=1280:-1 )
 if "%ERRORLEVEL%"=="4" ( set resize=-vf scale=640:-1 )
+if NOT "%ERRORLEVEL%"=="5" ( goto bitrate_selection )
 
+@rem select = 5
+set /p new_size=Enter the new size (640):
+set resize=-vf scale=%new_size%:-1 
+
+:bitrate_selection
 echo.
 echo 1 - hevc_nvenc
 echo 2 - hevc_nvenc -b:v ?k
