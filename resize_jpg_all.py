@@ -5,6 +5,9 @@ from PIL import Image
 max_res = 1600
 
 
+suffixes = (".jpg", ".png", ".bmp", ".webp", ".jpeg")
+
+
 # ====================================
 def get_script_dir():
     return Path(__file__).parent.resolve()
@@ -22,12 +25,7 @@ def check_folder(folder):
     print()
     for file in folder.iterdir():
         if file.is_file() and "res_" not in file.name:
-            if file.suffix.lower() in (
-                ".jpg",
-                ".png",
-                ".bmp",
-                ".webp",
-            ):
+            if file.suffix.lower() in suffixes:
                 new_file = file.with_name("res_" + file.name).with_suffix(".jpg")
                 try:
                     with Image.open(file) as im:
@@ -65,12 +63,7 @@ def check_folder(folder):
 def check_folder2(folder):
     for file in folder.iterdir():
         if file.is_file() and "res_" not in file.name:
-            if file.suffix.lower() in (
-                ".jpg",
-                ".png",
-                ".bmp",
-                ".webp",
-            ):
+            if file.suffix.lower() in suffixes:
                 print()
                 print(file)
                 file.rename(file.with_name("res_" + file.name))
@@ -82,6 +75,8 @@ def check_folder2(folder):
 #
 # main
 if __name__ == "__main__":
+    # print("suffixes = ", type(suffixes), suffixes)
+
     check_folder(get_current_working_directory())
     # переименовываем файлы с ошибками
     check_folder2(get_current_working_directory())
