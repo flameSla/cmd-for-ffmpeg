@@ -1,0 +1,15 @@
+Видео
+Идентификатор : 1
+Формат : AVC
+Формат/Информация : Advanced Video Codec
+Битрейт : 4 882 Кбит/сек
+Библиотека кодирования : x264 core 164
+Настройки программы : opencl=1 / cabac=1 / ref=4 / deblock=1:-2:-2 / analyse=0x3:0x113 / me=umh / subme=9 / psy=1 / psy_rd=0.70:0.00 / mixed_ref=0 / me_range=32 / chroma_me=1 / trellis=2 / 8x8dct=1 / cqm=0 / deadzone=21,11 / fast_pskip=1 / chroma_qp_offset=-2 / threads=8 / lookahead_threads=1 / sliced_threads=0 / nr=0 / decimate=1 / interlaced=0 / bluray_compat=0 / constrained_intra=0 / bframes=9 / b_pyramid=2 / b_adapt=2 / b_bias=0 / direct=3 / weightb=1 / open_gop=0 / weightp=2 / keyint=250 / keyint_min=23 / scenecut=40 / intra_refresh=0 / rc_lookahead=40 / rc=crf / mbtree=1 / crf=16.0 / qcomp=0.70 / qpmin=10 / qpmax=20 / qpstep=4 / ip_ratio=1.40 / aq=1:1.00
+Язык : Japanese
+Default : Да
+Forced : Нет
+
+Если по простому:
+Потому что разные способы кодирование, вебки кранчей кодируют с постоянным битрейтом 8 тысяч для каждой секунды.
+А бдрипы кодируют через параметр crf который подбирается для каждой сцены нужный битрейт в зависимости от исходника.
+Тут crf=16.0 стоит, чем меньше тем лучше, больше хуже, оптимальное значение качество\вес это 15.
