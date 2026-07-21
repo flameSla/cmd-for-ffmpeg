@@ -1,5 +1,15 @@
 @echo off
 
+@rem hevc_nvenc - пресет fast бесполезен, только для быстрого уменьшения размера сериалов
+@rem 
+@rem hevc_nvenc slow qp_26 - для маленького размера
+@rem hevc_nvenc slow qp_21 - для хорошего качества
+@rem 
+@rem libx265 - пресет slow бесполезен + гораздо медленнее чем видеокарта
+@rem 
+@rem libx265 fast qp_21 - больше чем hevc_nvenc slow qp_21
+@rem libx265 fast qp_16 - больше чем hevc_nvenc slow qp_16
+
 rename_files_to_cp866.exe
 
 del files.tmp
@@ -41,6 +51,8 @@ echo 1 - hevc_nvenc
 echo 2 - hevc_nvenc -b:v ?k
 echo 3 - hevc_nvenc -b:v ?k ac3 ?k
 echo 4 - hevc_nvenc ac3 ?k
+echo 5 - hevc_nvenc fast qp_26
+echo 6 - hevc_nvenc slow qp_21
 echo.
 choice /c 1234 /m "default - 1" /t 30 /d 1
 
@@ -64,6 +76,15 @@ goto exit
 set /p abitrate=Enter the audio bitrate (192k):
 FOR /F "usebackq delims==" %%a IN (files.tmp) DO %ffmpeg% -i %%a %resize%-c:v hevc_nvenc -preset slow -qp 26 -c:a ac3 -ac 2 -b:a %abitrate% -c:s copy "%%~dpahevc_nvenc_%%~na.mkv"
 goto exit
+
+:answer5
+FOR /F "usebackq delims==" %%a IN (files.tmp) DO %ffmpeg% -i %%a %resize%-c:v hevc_nvenc -preset fast -qp 26 -c:a copy -c:s copy "%%~dpahevc_nvenc_%%~na.mkv"
+goto exit
+
+:answer6
+FOR /F "usebackq delims==" %%a IN (files.tmp) DO %ffmpeg% -i %%a %resize%-c:v hevc_nvenc -preset slow -qp 21 -c:a copy -c:s copy "%%~dpahevc_nvenc_%%~na.mkv"
+goto exit
+
 
 :exit
 
