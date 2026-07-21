@@ -11,7 +11,7 @@ FOR /r %%a IN (*.mp4) DO echo "%%a" >> files.tmp
 FOR /r %%a IN (*.avi) DO echo "%%a" >> files.tmp
 FOR /r %%a IN (*.wmv) DO echo "%%a" >> files.tmp
 
-notepad.exe files.tmp
+"C:\Program Files (x86)\Notepad++\notepad++.exe" files.tmp
 
 set ffmpeg="C:\Program Files\ffmpeg\bin\ffmpeg.exe"
 
@@ -40,8 +40,9 @@ echo.
 echo 1 - hevc_nvenc
 echo 2 - hevc_nvenc -b:v ?k
 echo 3 - hevc_nvenc -b:v ?k ac3 ?k
+echo 4 - hevc_nvenc ac3 ?k
 echo.
-choice /c 123 /m "default - 1" /t 30 /d 1
+choice /c 1234 /m "default - 1" /t 30 /d 1
 
 goto answer%ERRORLEVEL%
 :answer1
@@ -57,6 +58,11 @@ goto exit
 set /p vbitrate=Enter the video bitrate (1200k):
 set /p abitrate=Enter the audio bitrate (192k):
 FOR /F "usebackq delims==" %%a IN (files.tmp) DO %ffmpeg% -i %%a %resize%-c:v hevc_nvenc -preset slow -b:v %vbitrate% -c:a ac3 -ac 2 -b:a %abitrate% -c:s copy "%%~dpahevc_nvenc_%%~na.mkv"
+goto exit
+
+:answer4
+set /p abitrate=Enter the audio bitrate (192k):
+FOR /F "usebackq delims==" %%a IN (files.tmp) DO %ffmpeg% -i %%a %resize%-c:v hevc_nvenc -preset slow -qp 26 -c:a ac3 -ac 2 -b:a %abitrate% -c:s copy "%%~dpahevc_nvenc_%%~na.mkv"
 goto exit
 
 :exit
