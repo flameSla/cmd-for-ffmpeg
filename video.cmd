@@ -79,12 +79,13 @@ goto exit
 
 :answer5
 FOR /F "usebackq delims==" %%a IN (files.tmp) DO %ffmpeg% -i %%a %resize%-c:v hevc_nvenc -preset fast -qp 26 -c:a copy -c:s copy "%%~dpahevc_nvenc_%%~na.mkv"
+set vbitrate="hevc_nvenc fast qp_26"
 goto exit
 
 :answer6
 FOR /F "usebackq delims==" %%a IN (files.tmp) DO %ffmpeg% -i %%a %resize%-c:v hevc_nvenc -preset slow -qp 21 -c:a copy -c:s copy "%%~dpahevc_nvenc_%%~na.mkv"
+set vbitrate="hevc_nvenc slow qp_21"
 goto exit
-
 
 :exit
 
