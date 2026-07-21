@@ -54,7 +54,7 @@ echo 4 - hevc_nvenc ac3 ?k
 echo 5 - hevc_nvenc fast qp_26
 echo 6 - hevc_nvenc slow qp_21
 echo.
-choice /c 1234 /m "default - 1" /t 30 /d 1
+choice /c 123456 /m "default - 1" /t 30 /d 1
 
 goto answer%ERRORLEVEL%
 :answer1
